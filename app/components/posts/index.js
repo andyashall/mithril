@@ -1,5 +1,4 @@
 import m from 'mithril'
-import axios from 'axios'
 
 import css from './style.css'
 
@@ -8,13 +7,13 @@ export default class Posts {
     this.posts = []
   }
   oncreate() {
-    axios.get('https://www.reddit.com/r/JavaScript.json')
-    .then((res)=>{
-        let p = res.data.data.children
-        console.log(this.posts)
-        this.posts = p
-        console.log(this.posts)
-        m.redraw()
+    m.request({
+      method: 'GET',
+      url: 'https://www.reddit.com/r/JavaScript.json'
+    })
+    .then((res) => {
+      let p = res.data.children
+      this.posts = p
     })
     .catch((err)=>{console.log(err)})
   }
