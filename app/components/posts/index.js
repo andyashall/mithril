@@ -3,28 +3,27 @@ import axios from 'axios'
 
 import css from './style.css'
 
-let posts = [
-  {
-    title: 'Testing',
-    content: 'Some text'
-  },
-  {
-    title: 'Testing 2',
-    content: 'Some text'
-  },
-]
-
-axios.get('https://www.reddit.com/r/JavaScript.json')
-.then((res)=>{
-    let p = res.data.data.children
-    console.log(p)
-    posts = p
-})
-.catch((err)=>{console.log(err)})
-
-export default m('.postsCont', posts.map(p => {
-  return m('.post',
-    m('.postTitle', p.title),
-    m('.postContent', p.content)
-  )
-}))
+export default class Posts {
+  constructor() {
+    this.posts = []
+  }
+  oncreate() {
+    axios.get('https://www.reddit.com/r/JavaScript.json')
+    .then((res)=>{
+        let p = res.data.data.children
+        console.log(this.posts)
+        this.posts = p
+        console.log(this.posts)
+        m.redraw()
+    })
+    .catch((err)=>{console.log(err)})
+  }
+  view() {
+    return m('.postsCont', this.posts.map(p => {
+      return m('.post',
+        m('.postTitle', p.data.author),
+        m('.postContent', p.data.title)
+      )
+    }))
+  }
+}
