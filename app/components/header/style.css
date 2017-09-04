@@ -14,6 +14,10 @@
   left: 20px;
   transform: translateY(-50%);
 }
+.headLeft a {
+  text-decoration: none;
+  color: inherit;
+}
 .headRight {
   position: absolute;
   top: 50%;

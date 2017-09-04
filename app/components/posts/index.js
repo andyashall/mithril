@@ -3,13 +3,18 @@ import Post from '../post'
 import css from './style.css'
 
 export default class Posts {
-  constructor() {
+  constructor(vnode) {
     this.posts = []
   }
-  oncreate() {
+  oncreate(vnode) {
+    console.log(vnode)
+    let sub = vnode.dom.baseURI.replace('http://localhost:3000/', '')
+    if (sub == '') {
+      sub = 'JavaScript'
+    }
     m.request({
       method: 'GET',
-      url: 'https://www.reddit.com/r/JavaScript.json'
+      url: `https://www.reddit.com/r/${sub}.json`
     })
     .then((res) => {
       let p = res.data.children
@@ -17,13 +22,9 @@ export default class Posts {
     })
     .catch((err)=>{console.log(err)})
   }
-  view() {
+  view(vnode) {
     return m('.postsCont', this.posts.map(p => {
       return m(Post, {author: p.data.author, title: p.data.title})
-      // return m('.post',
-      //   m('.postTitle', p.data.author),
-      //   m('.postContent', p.data.title)
-      // )
     }))
   }
 }

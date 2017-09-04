@@ -1,11 +1,10 @@
 import m from 'mithril'
 
 import Home from './views/home'
+import Page from './views/page'
 
-m.mount(document.body, Home)
-
-// m.route.mode = 'hash'
-// m.render(document.body, '/', {
-//   '/': 'home',
-//   '/:page': 'page'
-// })
+m.route.prefix('')
+m.route(document.body, '/', {
+  '/': Home,
+  '/:page': Page
+})
