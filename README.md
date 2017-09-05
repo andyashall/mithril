@@ -4,6 +4,5 @@ Minimal boilerplate using express for back-end, Mithril for front-end and webpac
 
 ## Todo
 
-- Use express for dev server with webpack hot middleware
 - Add MongoDB
 - Test with web app
